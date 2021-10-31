@@ -1,0 +1,80 @@
+{
+	"ABI version": 2,
+	"version": "2.1",
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"_base","type":"address"},
+				{"name":"_attackWar","type":"uint256"},
+				{"name":"_protectWar","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getAttackPower",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
+			"name": "getPowerProtection",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
+			"name": "rm",
+			"inputs": [
+				{"name":"adr","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "attack",
+			"inputs": [
+				{"name":"gameObject","type":"address"},
+				{"name":"unit","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "acceptAttack",
+			"inputs": [
+				{"name":"unit","type":"address"},
+				{"name":"attack","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "stationAddress",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"stationAddress","type":"address"}
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"health","type":"uint256"},
+		{"name":"stationAddress","type":"address"},
+		{"name":"attackWar","type":"uint256"},
+		{"name":"protectWar","type":"uint256"}
+	]
+}
