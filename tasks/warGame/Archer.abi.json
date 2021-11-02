@@ -6,7 +6,7 @@
 		{
 			"name": "constructor",
 			"inputs": [
-				{"name":"_base","type":"address"},
+				{"name":"_baseSA","type":"address"},
 				{"name":"_attackArcher","type":"uint256"},
 				{"name":"_protectArcher","type":"uint256"}
 			],
@@ -30,18 +30,17 @@
 			]
 		},
 		{
-			"name": "rm",
+			"name": "attack",
 			"inputs": [
-				{"name":"adr","type":"address"}
+				{"name":"gameObject","type":"address"}
 			],
 			"outputs": [
 			]
 		},
 		{
-			"name": "attack",
+			"name": "deathDueToStation",
 			"inputs": [
-				{"name":"gameObject","type":"address"},
-				{"name":"unit","type":"address"}
+				{"name":"dest","type":"address"}
 			],
 			"outputs": [
 			]
@@ -49,18 +48,25 @@
 		{
 			"name": "acceptAttack",
 			"inputs": [
-				{"name":"unit","type":"address"},
 				{"name":"attack","type":"uint256"}
 			],
 			"outputs": [
 			]
 		},
 		{
-			"name": "stationAddress",
+			"name": "health",
 			"inputs": [
 			],
 			"outputs": [
-				{"name":"stationAddress","type":"address"}
+				{"name":"health","type":"uint256"}
+			]
+		},
+		{
+			"name": "archerAddress",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"archerAddress","type":"address"}
 			]
 		}
 	],
@@ -73,8 +79,10 @@
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
 		{"name":"health","type":"uint256"},
+		{"name":"sender","type":"address"},
 		{"name":"stationAddress","type":"address"},
 		{"name":"attackArcher","type":"uint256"},
-		{"name":"protectArcher","type":"uint256"}
+		{"name":"protectArcher","type":"uint256"},
+		{"name":"archerAddress","type":"address"}
 	]
 }

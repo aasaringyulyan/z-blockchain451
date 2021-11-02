@@ -4,17 +4,12 @@ pragma AbiHeader expire;
 import 'MilitaryUnit.sol';
 
 contract Warrior is MilitaryUnit {
-
     uint attackWar;
     uint protectWar;
+    address public warriorAddress = this;
 
-    constructor(BaseStation _base, uint _attackWar, uint _protectWar) 
-    MilitaryUnit(_base, address(this)) public {
-        require(tvm.pubkey() != 0, 101);
-        require(msg.pubkey() == tvm.pubkey(), 102);
-
-        tvm.accept();
-
+    constructor(BaseStation _baseSW, uint _attackWar, uint _protectWar) 
+    MilitaryUnit(_baseSW, warriorAddress) public override {
         attackWar = _attackWar;
         protectWar = _protectWar;
     }
@@ -27,10 +22,7 @@ contract Warrior is MilitaryUnit {
     function getPowerProtection() public override returns(uint) {
         tvm.accept();
         return protectWar;
-    }
 
-    function rm(address adr) public {
-        tvm.accept();
-        adr.transfer(1, true, 160);
+        
     }
 }

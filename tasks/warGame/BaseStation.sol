@@ -3,11 +3,15 @@ pragma AbiHeader expire;
 
 import 'GameObject.sol';
 
+// interface testI {
+//     function deathDueToStation(address ad) external;
+// }
+
+import 'MilitartInterface.sol';
+
 contract BaseStation is GameObject {
-
-    address[] public unitsAddress;
-
-    uint protect = 20;
+    MilitartInterface[] public unitsAddress;
+    uint protect = 5;
 
     function getPowerProtection() public override returns(uint) {
         tvm.accept();
@@ -16,14 +20,14 @@ contract BaseStation is GameObject {
 
     function addMilitary(address dest) external  {
         tvm.accept();
-        unitsAddress.push(dest);
+        unitsAddress.push(MilitartInterface(dest));
     }
 
     function removeMilitary(address dest) public {
         tvm.accept();
         for (uint256 i = 0; i < unitsAddress.length; i++) {
             if (unitsAddress[i] == dest) {
-                address tmp = unitsAddress[i];
+                MilitartInterface tmp = unitsAddress[i];
                 unitsAddress[i] = unitsAddress[unitsAddress.length - 1];
                 unitsAddress[unitsAddress.length - 1] = tmp;
                 unitsAddress.pop();
@@ -33,10 +37,10 @@ contract BaseStation is GameObject {
     }
 
     function processingDeath(address dest) internal override {
+        tvm.accept();
         for (uint256 i = 0; i < unitsAddress.length; i++) {
-            
+            unitsAddress[i].deathDueToStation(dest);
         }
-
         sendAllMoneyDestroyWallet(dest);
     }
 }

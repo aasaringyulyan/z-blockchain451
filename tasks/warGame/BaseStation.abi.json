@@ -30,7 +30,6 @@
 		{
 			"name": "acceptAttack",
 			"inputs": [
-				{"name":"unit","type":"address"},
 				{"name":"attack","type":"uint256"}
 			],
 			"outputs": [
@@ -41,6 +40,14 @@
 			"inputs": [
 			],
 			"outputs": [
+			]
+		},
+		{
+			"name": "health",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"health","type":"uint256"}
 			]
 		},
 		{
@@ -61,6 +68,7 @@
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
 		{"name":"health","type":"uint256"},
+		{"name":"sender","type":"address"},
 		{"name":"unitsAddress","type":"address[]"},
 		{"name":"protect","type":"uint256"}
 	]

@@ -4,23 +4,32 @@ pragma AbiHeader expire;
 import 'GameObjectInterface.sol';
 
 contract GameObject is GameObjectInterface {
-
-    uint health = 5;
+    uint public health = 10; // скрыть
+    address sender;
     
     function getPowerProtection() virtual public returns(uint) {}
 
     // скрыть от пользователя internal
-    function acceptAttack(address unit, uint attack) external override {
-        attack -= getPowerProtection(); 
-        health -= attack;
+    function acceptAttack(uint attack) external override {
+        if (attack > getPowerProtection()) {
+            attack -= getPowerProtection();
+            
+            if (attack >= health) {
+                health = 0;
+            } else {
+                health -= attack;
+            }
 
-        if (isDied(health)) {
-            processingDeath(unit);
+            sender = msg.sender;
+
+            if (isDied(health)) {
+                processingDeath(sender);
+            }
         }
     }
 
     function isDied(uint value) private returns (bool) {
-        if (value <= 0) {
+        if (value == 0) {
             return true;
         }
 
@@ -28,7 +37,7 @@ contract GameObject is GameObjectInterface {
     }
 
     function processingDeath(address dest) virtual internal {
-        sendAllMoneyDestroyWallet(dest);
+        // sendAllMoneyDestroyWallet(dest);
     }
 
     function sendAllMoneyDestroyWallet(address dest) internal {

@@ -1,22 +1,28 @@
 pragma ton-solidity >= 0.35.0;
 pragma AbiHeader expire;
 
-import 'GameObject.sol';
 import 'BaseStation.sol';
+import 'GameObject.sol';
 import 'GameObjectInterface.sol';
+import 'MilitartInterface.sol';
 
-contract MilitaryUnit is GameObject {
-
-    address public stationAddress;
-    // BaseStation baseSt;
+contract MilitaryUnit is GameObject, MilitartInterface {
+    BaseStation stationAddress; 
     
-   constructor(BaseStation _station, address unit) public {
+   constructor(BaseStation _station, address unit) virtual public {
+        require(tvm.pubkey() != 0, 101);
+        require(msg.pubkey() == tvm.pubkey(), 102);
+
+        tvm.accept();
+
         _station.addMilitary(unit);
-        // baseSt = _station;
+        stationAddress = _station;
     }
 
-    function attack(GameObjectInterface gameObject, address unit) external {
-       gameObject.acceptAttack(unit, getAttackPower());
+    function attack(GameObjectInterface gameObject) external {
+        tvm.accept();
+       gameObject.acceptAttack(getAttackPower());
+
     }
 
     function getAttackPower() virtual public returns(uint) {}
@@ -24,12 +30,14 @@ contract MilitaryUnit is GameObject {
     function getPowerProtection() virtual public override returns(uint) {}
 
     function processingDeath(address dest) internal override {
-        // baseSt.removeMilitary(address(this)); // возможна проблема с адресом 
+        tvm.accept();
+        stationAddress.removeMilitary(this); 
         sendAllMoneyDestroyWallet(dest);
-        
     }
 
-    function deathDueToStation() internal {
-        
+    function deathDueToStation(address dest) external override {
+        tvm.accept();
+        stationAddress.removeMilitary(this);
+        sendAllMoneyDestroyWallet(dest);
     }
 }
